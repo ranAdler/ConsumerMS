@@ -17,10 +17,10 @@ public class Message {
     private String msg;
 
     @Column(name = "operation", length = 50)
-    private String operation;
+    private Operation operation;
 
     @Column(name = "status", length = 50)
-    private String status;
+    private Status status;
 
     @UpdateTimestamp
     @Column(name = "last_updated")
@@ -33,7 +33,7 @@ public class Message {
     public Message() {
     }
 
-    public Message(Integer id, String msg, String operation, String status) {
+    public Message(Integer id, String msg, Operation operation, Status status) {
         this.id = id;
         this.msg = msg;
         this.operation = operation;
@@ -56,19 +56,19 @@ public class Message {
         this.msg = msg;
     }
 
-    public String getOperation() {
+    public Operation getOperation() {
         return operation;
     }
 
-    public void setOperation(String operation) {
+    public void setOperation(Operation operation) {
         this.operation = operation;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 

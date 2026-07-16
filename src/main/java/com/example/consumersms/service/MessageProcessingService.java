@@ -3,6 +3,8 @@ package com.example.consumersms.service;
 import com.example.consumersms.dto.MessageDTO;
 import com.example.consumersms.dto.MessageIdDTO;
 import com.example.consumersms.entity.Message;
+import com.example.consumersms.entity.Operation;
+import com.example.consumersms.entity.Status;
 import com.example.consumersms.exception.MessageNotFoundException;
 import com.example.consumersms.mapper.MessageMapper;
 import com.example.consumersms.repository.MessageRepository;
@@ -39,8 +41,8 @@ public class MessageProcessingService {
         }
 
         Message entity = messageMapper.toEntity(dto);
-        entity.setOperation("CREATE");
-        entity.setStatus("ACTIVE");
+        entity.setOperation(Operation.CREATE);
+        entity.setStatus(Status.ACTIVE);
 
         messageRepository.save(entity);
         logger.info("✓ CREATE: Message {} saved successfully - Content: '{}'",
@@ -56,7 +58,7 @@ public class MessageProcessingService {
 
         String oldValue = entity.getMsg();
         entity.setMsg(dto.getMsg());
-        entity.setOperation("UPDATE");
+        entity.setOperation(Operation.UPDATE);
 
         messageRepository.save(entity);
         logger.info("✓ UPDATE: Message {} updated successfully - Old: '{}' -> New: '{}'",
@@ -70,9 +72,9 @@ public class MessageProcessingService {
         Message entity = messageRepository.findById(dto.getId())
                 .orElseThrow(() -> new MessageNotFoundException(dto.getId()));
 
-        String previousStatus = entity.getStatus();
-        entity.setStatus("DELETED");
-        entity.setOperation("DELETE");
+        Status previousStatus = entity.getStatus();
+        entity.setStatus(Status.DELETED);
+        entity.setOperation(Operation.DELETE);
 
         messageRepository.save(entity);
         logger.info("✓ DELETE: Message {} marked as deleted - Status: {} -> DELETED",
@@ -84,7 +86,7 @@ public class MessageProcessingService {
 
         Message entity = messageRepository.findById(dto.getId()).orElse(null);
 
-        if (entity != null && !"DELETED".equals(entity.getStatus())) {
+        if (entity != null && !Status.DELETED.equals(entity.getStatus())) {
             logger.info("✓ READ: Message {} retrieved successfully - Content: '{}' - Status: {}",
                         dto.getId(), entity.getMsg(), entity.getStatus());
         } else if (entity != null) {
