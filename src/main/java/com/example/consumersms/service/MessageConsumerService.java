@@ -22,7 +22,7 @@ public class MessageConsumerService {
         this.exceptionHandler = exceptionHandler;
     }
 
-    @KafkaListener(topics = "message-create-topic", groupId = "consumer-service-group")
+    @KafkaListener(topics = "${app.kafka.topics.message-create}", groupId = "${app.kafka.consumer-group}")
     public void handleCreate(String message) {
         try {
             MessageDTO dto = deserializerService.deserializeMessageDTO(message);
@@ -34,7 +34,7 @@ public class MessageConsumerService {
         }
     }
 
-    @KafkaListener(topics = "message-update-topic", groupId = "consumer-service-group")
+    @KafkaListener(topics = "${app.kafka.topics.message-update}", groupId = "${app.kafka.consumer-group}")
     public void handleUpdate(String message) {
         try {
             MessageDTO dto = deserializerService.deserializeMessageDTO(message);
@@ -46,7 +46,7 @@ public class MessageConsumerService {
         }
     }
 
-    @KafkaListener(topics = "message-delete-topic", groupId = "consumer-service-group")
+    @KafkaListener(topics = "${app.kafka.topics.message-delete}", groupId = "${app.kafka.consumer-group}")
     public void handleDelete(String message) {
         try {
             MessageIdDTO dto = deserializerService.deserializeMessageIdDTO(message);
@@ -58,7 +58,7 @@ public class MessageConsumerService {
         }
     }
 
-    @KafkaListener(topics = "message-read-topic", groupId = "consumer-service-group")
+    @KafkaListener(topics = "${app.kafka.topics.message-read}", groupId = "${app.kafka.consumer-group}")
     public void handleRead(String message) {
         try {
             MessageIdDTO dto = deserializerService.deserializeMessageIdDTO(message);

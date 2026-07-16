@@ -31,6 +31,16 @@ spring:
     properties:
       heartbeat.interval.ms: 10000
 
+# Application Kafka Configuration
+app:
+  kafka:
+    consumer-group: consumer-service-group
+    topics:
+      message-create: message-create-topic
+      message-update: message-update-topic
+      message-delete: message-delete-topic
+      message-read: message-read-topic
+
 server:
   port: 8080
   servlet:
