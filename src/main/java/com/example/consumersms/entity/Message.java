@@ -16,9 +16,11 @@ public class Message {
     @Column(name = "msg", length = 500)
     private String msg;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "operation", length = 50)
     private Operation operation;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 50)
     private Status status;
 
