@@ -5,11 +5,7 @@ CREATE TABLE IF NOT EXISTS messages (
     operation VARCHAR(50),
     last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     status VARCHAR(50) DEFAULT 'ACTIVE',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    INDEX idx_operation (operation),
-    INDEX idx_status (status),
-    INDEX idx_last_updated (last_updated),
-    INDEX idx_status_operation (status, operation)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Create audit log table (optional but recommended)
